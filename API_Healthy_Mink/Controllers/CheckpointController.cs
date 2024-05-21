@@ -9,13 +9,19 @@ namespace API_Healthy_Mink.Controllers
     [ApiController]
     public class CheckpointController : ControllerBase
     {
+        //экземпляр для обращение к БД
         private readonly HealthyMInk_BaseContext _context;
 
+        //конструктор класса
         public CheckpointController(HealthyMInk_BaseContext context) 
         { 
             _context = context; 
         }
-
+        /// <summary>
+        /// Вспомогательный метод для возврата json смены
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Shift>> GetShift(int id)
         {
@@ -32,7 +38,7 @@ namespace API_Healthy_Mink.Controllers
 
             return shift;
         }
-
+        //Добавление замечаний
         private async void CalculationRemark(int id)
         {
             var employee = await _context.Employees.FindAsync(id);
@@ -40,7 +46,12 @@ namespace API_Healthy_Mink.Controllers
             _context.Employees.Update(employee);
             await _context.SaveChangesAsync();
         }
-
+        /// <summary>
+        /// Метод начала рабочего дня
+        /// </summary>
+        /// <param name="id">идентификатор пользователя</param>
+        /// <param name="StartShift">Начало смены</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Shift>> StartShift(int id, DateTime StartShift)
         {
@@ -80,7 +91,12 @@ namespace API_Healthy_Mink.Controllers
 
             }
         }
-
+        /// <summary>
+        /// Метод конца рабочего дня
+        /// </summary>
+        /// <param name="id">идентификатор пользователя</param>
+        /// <param name="EndShift">Конец смены</param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<ActionResult<Shift>> EndShift(int id, DateTime EndShift)
         {

@@ -13,7 +13,7 @@ namespace API_Healthy_Mink.Models
             : base(options)
         {
         }
-
+        //переопределения конфигурации сборщика
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=Healthy_Mink.db");
@@ -23,6 +23,7 @@ namespace API_Healthy_Mink.Models
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<Shift> Shifts { get; set; } = null!;
+        //Автозаполнение данных
         public static async Task SeedDataAsync(HealthyMInk_BaseContext context)
         {
             if (!context.Roles.Any()) 
