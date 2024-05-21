@@ -33,6 +33,14 @@ namespace API_Healthy_Mink.Controllers
             return shift;
         }
 
+        private async void CalculationRemark(int id)
+        {
+            var employee = await _context.Employees.FindAsync(id);
+            employee.NumberRemark++;
+            _context.Employees.Update(employee);
+            await _context.SaveChangesAsync();
+        }
+
         [HttpPost]
         public async Task<ActionResult<Shift>> StartShift(int id, DateTime StartShift)
         {
@@ -49,6 +57,9 @@ namespace API_Healthy_Mink.Controllers
                         }
                     }
                 }
+                var startDay = _context.Roles.Find(_context.Employees.Find(id).RoleId).StartShift;
+                startDay = DateTime.Now.Date.AddHours(startDay.Hour);
+                if ( StartShift >= startDay)CalculationRemark(id);
 
                 Shift shift = new Shift()
                 {
@@ -86,6 +97,9 @@ namespace API_Healthy_Mink.Controllers
                             shift.NumberHours = EndShift.Subtract(shift.StartShift).TotalHours;
                             _context.Shifts.Update(shift);
                             await _context.SaveChangesAsync();
+                            var endDay = _context.Roles.Find(_context.Employees.Find(id).RoleId).EndShift;
+                            endDay = DateTime.Now.Date.AddHours(endDay.Hour);
+                            if (EndShift <= endDay) CalculationRemark(id);
                             return CreatedAtAction("GetShift", new { id = shift.Id }, shift);
                         }
                     }

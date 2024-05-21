@@ -36,6 +36,9 @@ namespace API_Healthy_Mink.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("NumberRemark")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("INTEGER");
 

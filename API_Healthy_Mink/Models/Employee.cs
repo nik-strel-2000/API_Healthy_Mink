@@ -17,6 +17,8 @@ namespace API_Healthy_Mink.Models
         public string LastName { get; set; } = null!;
         public string? MiddleName { get; set; }
         public int RoleId { get; set; } 
-        
+        public int? NumberRemark {  get; set; }
+
+
     }
 }

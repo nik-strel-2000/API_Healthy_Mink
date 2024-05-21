@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Healthy_Mink.Migrations
 {
     [DbContext(typeof(HealthyMInk_BaseContext))]
-    [Migration("20240521150600_NewMigration")]
-    partial class NewMigration
+    [Migration("20240521183830_newMigration")]
+    partial class newMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,9 @@ namespace API_Healthy_Mink.Migrations
 
                     b.Property<string>("MiddleName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("NumberRemark")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("INTEGER");
