@@ -1,0 +1,6 @@
+@API_Healthy_Mink_HostAddress = http://localhost:5078
+
+GET {{API_Healthy_Mink_HostAddress}}/Employee/
+Accept: application/json
+
+###
